@@ -144,28 +144,38 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 		 	of JIRA and assuming boardId + id is sufficiently unique across multiple JIRA
 			instances */
 
-		sprintSysId = null;
+		sprintSysId = '';
 		for (var property in issue.fields) {
 			if (property.match(/customfield_\d{1,}/i) && 
 					issue.fields[property] instanceof Array &&
 						issue.fields[property].length > 0) {
-				var value = issue.fields[property][0];
-				if (value.match(/^com\.atlassian\.greenhopper\.service\.sprint\.Sprint/i)) {
-					// sprintId
-					matches = value.match(/id=(\d{1,}),/);
-					sprintId = matches[1];
+				for (var i=0; i<issue.fields[property].length; i++) {
+					var value = issue.fields[property][i];
+					if (value.match(/^com\.atlassian\.greenhopper\.service\.sprint\.Sprint/i)) {
+						// state
+						matches = value.match(/state=(.*?),/);
+						state 	= matches[1];
 
-					// BoardId (rapidViewId?)
-					matches = value.match(/rapidViewId=(\d{1,}),/);
-					boardId = matches[1];
+						// sprintId
+						matches = value.match(/id=(\d{1,}),/);
+						sprintId = matches[1];
 
-					sprintSysId = this.get_sn_sprint(sprintId, boardId);
+						// BoardId (rapidViewId?)
+						matches = value.match(/rapidViewId=(\d{1,}),/);
+						boardId = matches[1];
+
+						if (state != "CLOSED") {
+							sprintSysId = this.get_sn_sprint(sprintId, boardId);
+						}
+					}
 				}
 			}
 		}
 
 		// Now that we know the relationship of a Sprint to Project, patch it. **hack**
-		this.patch_project_sprint(projectSysId, sprintSysId);
+		if (gs.nil(sprintSysId)) {
+			this.patch_project_sprint(projectSysId, sprintSysId);
+		}
 
 		// Priority
 		priority 		= issue.fields.priority.name;
@@ -185,7 +195,7 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 		rec.reporter 	= reporterSysId;
 		rec.assignee 	= assigneeSysId;
 		rec.project 	= projectSysId;
-		rec.sprint 		= sprintSysId
+		rec.sprint 		= sprintSysId;
 		rec.id 			= id;
 		rec.url 		= url;
 		rec.key 		= key;
@@ -343,7 +353,7 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
         <sys_created_on>2016-08-15 17:51:44</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>367c1c0d13956a40913abcc32244b05d</sys_id>
-        <sys_mod_count>78</sys_mod_count>
+        <sys_mod_count>91</sys_mod_count>
         <sys_name>JiraWebhookProcessor</sys_name>
         <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
         <sys_policy>read</sys_policy>
@@ -351,6 +361,6 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
         <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
         <sys_update_name>sys_script_include_367c1c0d13956a40913abcc32244b05d</sys_update_name>
         <sys_updated_by>reuben.stump</sys_updated_by>
-        <sys_updated_on>2016-08-17 22:27:48</sys_updated_on>
+        <sys_updated_on>2016-08-17 23:23:24</sys_updated_on>
     </sys_script_include>
 </record_update>
