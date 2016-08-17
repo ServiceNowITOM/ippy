@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="type" label="Type" language="en" table="x_snc_ippy_jira_issues">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>type</element>
+            <help/>
+            <hint/>
+            <label>Type</label>
+            <language>en</language>
+            <name>x_snc_ippy_jira_issues</name>
+            <plural>Types</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 16:52:32</sys_created_on>
+            <sys_customer_update>false</sys_customer_update>
+            <sys_id>d8e262ed1391aa40913abcc32244b025</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Type</sys_name>
+            <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+            <sys_update_name>sys_documentation_x_snc_ippy_jira_issues_type_en</sys_update_name>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 16:52:32</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

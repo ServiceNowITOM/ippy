@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="SCM Repositories" max_length="40" name="x_snc_ippy_scm_repositories" type="collection">
+        <element label="Description" max_length="40" name="description" type="string"/>
+        <element label="Name" max_length="40" name="name" type="string"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element label="type" max_length="40" name="type" type="string"/>
+        <element label="URL" max_length="40" name="url" type="url"/>
+    </element>
+</database>

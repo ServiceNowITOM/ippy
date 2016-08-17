@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_section caption="" section_id="eb6c762913d1aa40913abcc32244b014" sys_domain="global" table="x_snc_ippy_jira_issues" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>key</element>
+            <position>0</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>dbde2b6d4f916280298deed18110c76e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>id</element>
+            <position>1</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>5fde2b6d4f916280298deed18110c76e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>url</element>
+            <position>2</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>dfde2b6d4f916280298deed18110c76e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>type</element>
+            <position>3</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>53de2b6d4f916280298deed18110c76f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.begin_split</element>
+            <position>4</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>d3de2b6d4f916280298deed18110c76f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>project</element>
+            <position>5</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>57de2b6d4f916280298deed18110c76f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>sprint</element>
+            <position>6</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>d7de2b6d4f916280298deed18110c76f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.end_split</element>
+            <position>7</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>5bde2b6d4f916280298deed18110c76f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type>.end_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.begin_split</element>
+            <position>8</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>dbde2b6d4f916280298deed18110c76f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>creator</element>
+            <position>9</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>5fde2b6d4f916280298deed18110c76f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>assignee</element>
+            <position>10</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>dfde2b6d4f916280298deed18110c76f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>reporter</element>
+            <position>11</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>53de2b6d4f916280298deed18110c770</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.end_split</element>
+            <position>12</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>d3de2b6d4f916280298deed18110c770</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type>.end_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>priority</element>
+            <position>13</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>57de2b6d4f916280298deed18110c770</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>description</element>
+            <position>14</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>d7de2b6d4f916280298deed18110c770</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>summary</element>
+            <position>15</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>5bde2b6d4f916280298deed18110c770</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>status</element>
+            <position>16</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 22:24:32</sys_created_on>
+            <sys_id>dbde2b6d4f916280298deed18110c770</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 22:24:32</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption/>
+            <header>false</header>
+            <name>x_snc_ippy_jira_issues</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-17 18:44:10</sys_created_on>
+            <sys_customer_update>true</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>eb6c762913d1aa40913abcc32244b014</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_snc_ippy_jira_issues</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+            <sys_update_name>sys_ui_section_eb6c762913d1aa40913abcc32244b014</sys_update_name>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-17 18:44:10</sys_updated_on>
+            <sys_user/>
+            <title>true</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

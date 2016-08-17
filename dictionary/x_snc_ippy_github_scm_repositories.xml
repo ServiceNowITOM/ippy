@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="x_snc_ippy_scm_repositories" label="GitHub SCM Repositories" max_length="40" name="x_snc_ippy_github_scm_repositories" type="collection">
+        <element label="Credential" max_length="32" name="credential" reference="x_snc_ippy_github_scm_credentials" type="reference"/>
+        <element label="Full Name" max_length="40" name="full_name" type="string"/>
+        <index name="index">
+            <element name="credential"/>
+        </index>
+    </element>
+</database>

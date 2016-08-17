@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_snc_ippy.JenkinsWebHookProcessor</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>JenkinsWebHookProcessor</name>
+        <script><![CDATA[var JenkinsWebHookProcessor = Class.create();
+JenkinsWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
+	
+	Get_jenkins_Cred: function(url){
+		var juser;
+		var jpass;
+		var GL = new GlideRecord('x_snc_ippy_jenkins_build_server_servers');
+		GL.addQuery('url' ,url);
+		GL.query();
+		while (GL.next()) {
+			juser = GL.credential.user;
+			var pass = GL.credential.password;
+			jpass = GL.credential.password.getDecryptedValue();
+			gs.info("Found Jenkins, It hides Like waldo: Inputs: " + url);
+			return {
+				user: juser,
+				password: jpass,
+				build_server_SysID: GL.sys_id
+			}
+		}
+	},
+
+	Get_jenkins_build: function(url, username, pass){
+
+		var restMessage = new sn_ws.RESTMessageV2();
+		var user = username;
+		var password = pass;
+		restMessage.setBasicAuth(user, password);
+		restMessage.setHttpMethod("get");
+		var myurl = url + 'api/json';
+		restMessage.setEndpoint(myurl);
+		var httpExecute = restMessage.executeAsync();
+		httpExecute.waitForResponse(60);
+		var messageBody = httpExecute.getBody();
+		gs.info("Jenkins Build:" + messageBody);
+		return global.JSON.parse(messageBody);
+
+	},
+
+	Get_commit: function(sha){
+
+		var branch_CommitsDB = new GlideRecord('x_snc_ippy_scm_commits');
+		branch_CommitsDB.addQuery('commit_id', sha);
+		branch_CommitsDB.query();
+		var branch_commits_InDB;
+		var branch_commits_type;
+		while (branch_CommitsDB.next()) {
+			branch_commits_InDB = branch_CommitsDB.sys_id;
+			branch_commits_type = branch_CommitsDB.type;
+		}
+		return {
+				commit_id: branch_commits_InDB,
+				commit_type: branch_commits_type
+			}
+	},
+
+	//Write Commit Based on type
+	//Write_Commit_GitHub: function(sha){},
+
+
+
+	//Lookup GitHub Commit Based on sha
+	//Fetch_GitHub_Commit: function(){},
+
+
+	Write_jenkins_build: function(buildJSON, commitID){
+
+
+		function twoDigits(d) {
+			if(0 <= d && d < 10) return "0" + d.toString();
+			if(-10 < d && d < 0) return "-0" + (-1*d).toString();
+			return d.toString();
+		}
+
+		function toMysqlFormat(mydate) {
+			return mydate.getUTCFullYear() + "-" + twoDigits(1 + mydate.getUTCMonth()) + "-" + twoDigits(mydate.getUTCDate()) + " " + twoDigits(mydate.getUTCHours()) + ":" + twoDigits(mydate.getUTCMinutes()) + ":" + twoDigits(mydate.getUTCSeconds());
+		};
+		var mytime = new Date();
+		var myforTime = toMysqlFormat(mytime);
+		var gdt = new GlideDateTime(myforTime);
+		var time = gdt;
+
+		var buildID = buildJSON.id;
+		var buildUrl = buildJSON.url;
+		var BuildName;
+		var BuildDB = new GlideRecord('x_snc_ippy_jenkins_build_server_builds');
+		BuildDB.addQuery('build_id' ,buildID);
+		BuildDB.addQuery('url', buildUrl);
+		BuildDB.query();
+		while (BuildDB.next()) {
+			BuildName = BuildDB.display_name;
+		}
+			if (!BuildName){
+				var buildDB_add = new GlideRecord('x_snc_ippy_jenkins_build_server_builds');
+				buildDB_add.initialize(); 
+				buildDB_add.build_id = buildJSON.id;
+				//buildDB_add.build_number = buildJSON.number;
+				buildDB_add.building = buildJSON.building;
+				buildDB_add.commit = commitID;
+				buildDB_add.description = buildJSON.description;
+				buildDB_add.display_name = buildJSON.displayName;
+				buildDB_add.duration = buildJSON.duration;
+				//buildDB_add.estimated_duration = buildJSON.estimatedDuration;
+				buildDB_add.full_display_name = buildJSON.fullDisplayName;
+				buildDB_add.result = buildJSON.result;
+				//buildDB_add.timestamp = time;
+				buildDB_add.url = buildJSON.url;
+				return buildDB_add.insert();
+		}
+
+
+	},
+
+	process: function(){
+		//Get Jenkins Cred
+		var j_host = this.headers['x-forwarded-for'];
+		gs.info("This is the this data:" + global.JSON.stringify(this.data));
+		var jenkins_server = this.Get_jenkins_Cred(j_host);
+
+		//Get Jenkins Build Info
+		var jenkins_build = this.Get_jenkins_build(this.data.build.scm.url, jenkins_server.user, jenkins_server.password);
+
+		//Get the Commit
+		var build_commit = this.Get_commit(this.data.build.scm.commit);
+
+		//May need code at some point that will fetch commits if they are missing and call the correct collector based on type. 
+		//That would go here
+
+
+		//Write Build to table
+		this.Write_jenkins_build(jenkins_build, build_commit.commit_id);
+
+	},
+
+    type: 'JenkinsWebHookProcessor'
+});
+
+//https://rstumph2.service-now.com/api/x_snc_ippy/jenkins_webhook/Notifications]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>shaun.millin</sys_created_by>
+        <sys_created_on>2016-08-15 21:52:02</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>5ddf8d4d13d56a40913abcc32244b0b6</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>JenkinsWebHookProcessor</sys_name>
+        <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+        <sys_update_name>sys_script_include_5ddf8d4d13d56a40913abcc32244b0b6</sys_update_name>
+        <sys_updated_by>shaun.millin</sys_updated_by>
+        <sys_updated_on>2016-08-17 13:38:42</sys_updated_on>
+    </sys_script_include>
+</record_update>

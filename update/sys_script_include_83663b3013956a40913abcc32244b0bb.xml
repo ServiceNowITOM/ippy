@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_snc_ippy.WebhookProcessor</api_name>
+        <client_callable>false</client_callable>
+        <description>Inheritable class for processing JSON based webhook payloads from scripted REST API s</description>
+        <name>WebhookProcessor</name>
+        <script><![CDATA[var WebhookProcessor = Class.create();
+WebhookProcessor.prototype = {
+    initialize: function(request) {
+
+    	gs.debug(request.body);
+		
+		/* Assumption: JSON payloads only*/
+		this.data = request.body.data;
+
+		this.headers     = request.headers;
+		this.pathParams  = request.pathParams;
+		this.queryParams = request.queryParams;
+		this.queryString = request.queryString;
+		this.data_string = request.dataString;
+
+		this.debug = false;
+		
+		return;
+    },
+	
+	/* child class implementation */
+	process: function() {
+		return;
+	},
+
+    type: 'WebhookProcessor'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>reuben.stump</sys_created_by>
+        <sys_created_on>2016-08-15 15:20:41</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>83663b3013956a40913abcc32244b0bb</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>WebhookProcessor</sys_name>
+        <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+        <sys_update_name>sys_script_include_83663b3013956a40913abcc32244b0bb</sys_update_name>
+        <sys_updated_by>shaun.millin</sys_updated_by>
+        <sys_updated_on>2016-08-17 13:49:05</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="x_snc_ippy_scm_commits" label="GitHub SCM Commits" max_length="40" name="x_snc_ippy_github_scm_commits" type="collection">
+        <element label="Change Additions" max_length="40" name="change_additions" type="integer"/>
+        <element label="Change Deletions" max_length="40" name="change_deletions" type="integer"/>
+        <element label="Message" max_length="10000" name="message" type="string"/>
+        <element label="SHA" max_length="50" name="sha" type="string"/>
+        <element label="URL" max_length="1024" name="url" type="url"/>
+    </element>
+</database>

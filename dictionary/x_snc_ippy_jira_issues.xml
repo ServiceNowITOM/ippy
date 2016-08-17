@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="JIRA Issues" max_length="40" name="x_snc_ippy_jira_issues" type="collection">
+        <element label="assignee" max_length="32" name="assignee" reference="sys_user" type="reference"/>
+        <element label="creator" max_length="32" name="creator" reference="sys_user" type="reference"/>
+        <element label="description" max_length="8192" name="description" type="string"/>
+        <element label="id" max_length="40" name="id" type="integer"/>
+        <element display="true" label="key" max_length="128" name="key" type="string"/>
+        <element label="priority" max_length="128" name="priority" type="string"/>
+        <element label="Project" max_length="32" name="project" reference="x_snc_ippy_jira_projects" reference_cascade_rule="delete" type="reference"/>
+        <element label="reporter" max_length="32" name="reporter" reference="sys_user" type="reference"/>
+        <element label="sprint" max_length="32" name="sprint" reference="x_snc_ippy_jira_sprints" type="reference"/>
+        <element label="status" max_length="128" name="status" type="string"/>
+        <element label="summary" max_length="8192" name="summary" type="string"/>
+        <element label="type" max_length="128" name="type" type="string"/>
+        <element label="url" max_length="1024" name="url" type="url"/>
+        <index name="index">
+            <element name="creator"/>
+        </index>
+        <index name="index2">
+            <element name="sprint"/>
+        </index>
+        <index name="index3">
+            <element name="project"/>
+        </index>
+        <index name="index4">
+            <element name="reporter"/>
+        </index>
+        <index name="index5">
+            <element name="assignee"/>
+        </index>
+    </element>
+</database>

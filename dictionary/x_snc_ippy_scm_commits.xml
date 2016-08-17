@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="SCM Commits" max_length="40" name="x_snc_ippy_scm_commits" type="collection">
+        <element label="Branch" max_length="32" name="branch" reference="x_snc_ippy_scm_branches" type="reference"/>
+        <element label="Commiter" max_length="40" name="commiter" type="string"/>
+        <element label="Commit Date" max_length="40" name="commit_date" type="glide_date_time"/>
+        <element label="Commit ID" max_length="50" name="commit_id" type="string"/>
+        <element label="Repository" max_length="32" name="repository" reference="x_snc_ippy_scm_repositories" type="reference"/>
+        <element label="Story" max_length="32" name="story" reference="rm_story" type="reference"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element label="Total Changes" max_length="40" name="total_changes" type="integer"/>
+        <element label="type" max_length="40" name="type" type="string"/>
+        <element label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <index name="index">
+            <element name="repository"/>
+        </index>
+        <index name="index2">
+            <element name="branch"/>
+        </index>
+        <index name="index3">
+            <element name="user"/>
+        </index>
+        <index name="index4">
+            <element name="story"/>
+        </index>
+    </element>
+</database>

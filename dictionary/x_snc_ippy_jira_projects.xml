@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="JIRA Projects" max_length="40" name="x_snc_ippy_jira_projects" type="collection">
+        <element label="description" max_length="8192" name="description" type="string"/>
+        <element label="host" max_length="256" name="host" type="string"/>
+        <element label="id" max_length="40" name="id" type="integer"/>
+        <element label="key" max_length="256" name="key" type="string"/>
+        <element display="true" label="name" max_length="256" name="name" type="string"/>
+        <element label="owner" max_length="32" name="owner" reference="sys_user" type="reference"/>
+        <element label="state" max_length="128" name="state" type="string"/>
+        <element label="url" max_length="1024" name="url" type="url"/>
+        <index name="index">
+            <element name="owner"/>
+        </index>
+    </element>
+</database>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="cmdb_model" label="Application Model" max_length="40" name="cmdb_application_product_model" type="collection">
+        <element active="false" label="JIRA Host" max_length="128" name="x_snc_ippy_jira_host" type="string"/>
+        <element label="JIRA ID" max_length="40" name="x_snc_ippy_jira_id" type="integer"/>
+    </element>
+</database>

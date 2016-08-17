@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="x_snc_ippy_scm_commit_files" label="GitHub Commit Files" max_length="40" name="x_snc_ippy_github_commit_files" type="collection">
+        <element label="Commit SHA" max_length="50" name="commit_sha" type="string"/>
+        <element label="File Additions" max_length="40" name="file_additions" type="integer"/>
+        <element label="File Changes" max_length="40" name="file_changes" type="integer"/>
+        <element label="File Deletions" max_length="40" name="file_deletions" type="integer"/>
+        <element label="File Name" max_length="40" name="file_name" type="string"/>
+        <element label="Status" max_length="40" name="status" type="string"/>
+        <element label="Total File Changes" max_length="40" name="total_file_changes" type="integer"/>
+    </element>
+</database>

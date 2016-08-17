@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_snc_ippy.JiraWebhookProcessor</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>JiraWebhookProcessor</name>
+        <script><![CDATA[var JiraWebhookProcessor = Class.create();
+JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
+	
+	process: function() {
+		this.debug = true;
+
+		if (this.debug) {
+			gs.info("JiraWebhookProcessor received webhook payload:\n" + global.JSON.stringify(this.data));
+		}
+
+		switch(this.data.webhookEvent) {
+			case "project_created":
+			case "project_updated":
+				this.update_project();
+				break;
+			case "project_deleted":
+				this.delete_project();
+				break;
+			case "jira:issue_created":
+			case "jira:issue_updated":
+				this.update_issue();
+				break;
+			case "jira:issue_deleted":
+				this.delete_issue();
+				break;
+			case "sprint_created":
+			case "sprint_updated":
+			case "sprint_started":
+			case "sprint_closed":
+				this.update_sprint();
+				break;
+			case "sprint_deleted":
+				this.delete_sprint();
+				break;
+			default:
+				break;
+		}
+	},
+
+	/* JIRA Project => x_snc_ippy_jira_projects *********************************************************
+
+		webhookEvent = ['project_created', 'project_updated', 'project_deleted']
+
+		Notes:
+			- 'description' is not sent in webhook create or update events from JIRA
+			- project_deleted does not cascade events on child objects, clean up will be needed
+	***************************************************************************************************** */
+
+	update_project: function() {
+
+		key		= this.data.project.key;
+		id		= this.data.project.id;
+		url		= this.data.project.self;
+		name	= this.data.project.name;		
+		email	= this.data.project.projectLead.emailAddress;
+		host 	= this.get_uri_host(url);
+
+		ownerSysId = this.get_sn_user(email);
+		if (!ownerSysId) {
+			gs.error("Failed to locate user with email address '" + email + 
+				"' for JIRA project '" + key + "' (" + host + ")");
+		}
+
+		rec = new GlideRecord('x_snc_ippy_jira_projects');
+		rec.addQuery('url', url);
+		rec.query();
+		rec.next();
+
+		rec.owner 	= ownerSysId;
+		rec.name  	= name;
+		rec.key 	= key;
+		rec.id 		= id;
+		rec.host 	= host;
+		rec.url 	= url;
+		rec.state 	= "Active";
+		rec.update();
+
+		return;
+	},
+
+	delete_project: function() {
+		
+		key		= this.data.project.key;
+		id		= this.data.project.id;
+		url		= this.data.project.self;
+
+		rec = new GlideRecord('x_snc_ippy_jira_projects');
+		rec.addQuery('url', url);
+		rec.deleteMultiple();
+
+		return;
+	},
+
+	/* JIRA Issue => x_snc_ippy_jira_issues *************************************************************
+
+		webhookEvent = ['issue_created', 'issue_updated', 'issue_deleted']
+
+		Notes:
+	***************************************************************************************************** */
+
+	update_issue: function() {
+
+		issue = this.data.issue;
+
+		key		= issue.key;
+		id		= issue.id;
+		url		= issue.self;
+		host 	= this.get_uri_host(url);
+		type 	= issue.fields.issuetype.name;
+		desc 	= issue.fields.description;
+		summary = issue.fields.summary;
+
+		// Match JIRA users to SN Users (sys_user) by emailAddress
+		creatorEmail  = issue.fields.creator.emailAddress;
+		reporterEmail = null;
+		assigneeEmail = null;
+		if (issue.fields.reporter != null) {
+			reporterEmail = issue.fields.reporter.emailAddress;
+		}
+		if (issue.fields.assignee != null) {
+			assigneeEmail = issue.fields.assignee.emailAddress;
+		}
+
+		creatorSysId 	= this.get_sn_user(creatorEmail);
+		reporterSysId 	= this.get_sn_user(reporterEmail);
+		assigneeSysId 	= this.get_sn_user(assigneeEmail);
+
+		// Project reference to x_snc_ippy_jira_projects
+		projectSysId	= this.get_sn_project(issue.fields.project.self);
+
+		/* Sprint reference to x_snc_ippy_jira_sprints
+		 	Issues have a customfield reference to the sprint, which seems to be
+			a toString() invocation on a java object.  Avoiding the assumption that
+			the same customfield_1001 is used consistently across versions and instances
+		 	of JIRA and assuming boardId + id is sufficiently unique across multiple JIRA
+			instances */
+
+		sprintSysId = null;
+		for (var property in issue.fields) {
+			if (property.match(/customfield_\d{1,}/i) && 
+					issue.fields[property] instanceof Array &&
+						issue.fields[property].length > 0) {
+				var value = issue.fields[property][0];
+				if (value.match(/^com\.atlassian\.greenhopper\.service\.sprint\.Sprint/i)) {
+					// sprintId
+					matches = value.match(/id=(\d{1,}),/);
+					sprintId = matches[1];
+
+					// BoardId (rapidViewId?)
+					matches = value.match(/rapidViewId=(\d{1,}),/);
+					boardId = matches[1];
+
+					sprintSysId = this.get_sn_sprint(sprintId, boardId);
+				}
+			}
+		}
+
+		// Now that we know the relationship of a Sprint to Project, patch it. **hack**
+		this.patch_project_sprint(projectSysId, sprintSysId);
+
+		// Priority
+		priority 		= issue.fields.priority.name;
+		status 			= issue.fields.status.name;
+
+		if (!creatorSysId) {
+			gs.error("Failed to locate creator with email address '" + email + 
+				"' for JIRA issue '" + key + "' (" + host + ")");
+		}
+
+		rec = new GlideRecord('x_snc_ippy_jira_issues');
+		rec.addQuery('url', url);
+		rec.query();
+		rec.next();
+
+		rec.creator 	= creatorSysId;
+		rec.reporter 	= reporterSysId;
+		rec.assignee 	= assigneeSysId;
+		rec.project 	= projectSysId;
+		rec.sprint 		= sprintSysId
+		rec.id 			= id;
+		rec.url 		= url;
+		rec.key 		= key;
+		rec.host 		= host;
+		rec.type 		= type;
+		rec.summary  	= summary;
+		rec.priority 	= priority;
+		rec.status 		= status;
+		rec.description = desc;
+
+		rec.update();
+
+		return;
+	},
+
+	delete_issue: function() {
+		
+		key		= this.data.issue.key;
+		id		= this.data.issue.id;
+		url		= this.data.issue.self;
+
+		rec = new GlideRecord('x_snc_ippy_jira_issues');
+		rec.addQuery('url', url);
+		rec.deleteMultiple();
+
+		return;
+	},
+
+
+	/* JIRA Sprint => x_snc_ippy_jira_sprints ***********************************************************
+
+		webhookEvent = ['issue_created', 'issue_updated', 'issue_deleted']
+
+		Notes:
+			- Sprint hooks do not show relationship to a project; hack we'll wait for an issue hook to 
+				link them
+			- Case where sprint records remain when they are created and a project is deleted before 
+				an isuse is linked to the sprint
+			- No 'self' in sprint_deleted event, this could cause issues with multiple JIRA instances
+	***************************************************************************************************** */
+
+	update_sprint: function() {
+
+		id		= this.data.sprint.id;
+		url		= this.data.sprint.self;
+		state	= this.data.sprint.state;
+		name	= this.data.sprint.name;
+		boardId = this.data.sprint.originBoardId;
+		host 	= this.get_uri_host(url);
+
+		rec = new GlideRecord('x_snc_ippy_jira_sprints');
+		rec.addQuery('url', url);
+		rec.query();
+		rec.next();
+
+		rec.name  	= name;
+		rec.id 		= id;
+		rec.host 	= host;
+		rec.url 	= url;
+		rec.state 	= state;
+		rec.boardid = boardId;
+		rec.update();
+
+		return;
+	},
+
+	delete_sprint: function() {
+
+		// boardId + id is the 'best' option for unique match across multiple instances of JIRA
+		
+		id		= this.data.sprint.id;
+		boardId = this.data.sprint.originBoardId;
+		name	= this.data.sprint.name;
+
+		rec = new GlideRecord('x_snc_ippy_jira_sprints');
+		rec.addQuery('boardid', boardId);
+		rec.addQuery('id', id);
+		rec.deleteMultiple();
+
+		return;
+	},
+
+
+	get_sn_user: function(email) {
+
+		if (gs.nil(email)) {
+			return null;
+		}
+		
+		user = new GlideRecord('sys_user');
+		user.addQuery('email', email);
+		user.query();
+
+		if (user.next()) {
+			return user.sys_id;
+		} else {
+			return null;
+		}
+	},
+
+	get_uri_host: function(uri) {
+		
+		hostname = null;
+		if (!gs.nil(uri)) {
+			matches  = uri.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+			hostname = matches && matches[1];
+		}
+		return hostname;
+	},
+
+	get_sn_project: function(uri) {
+
+		rec = new GlideRecord('x_snc_ippy_jira_projects');
+		rec.addQuery('url', uri);
+		rec.query();
+
+		if (rec.next()) {
+			return rec.sys_id;
+		} else {
+			return null;
+		}
+	},
+
+	get_sn_sprint: function(id, boardId) {
+
+		rec = new GlideRecord('x_snc_ippy_jira_sprints');
+		rec.addQuery('id', id);
+		rec.addQuery('boardid', boardId);
+		rec.query();
+
+		if (rec.next()) {
+			return rec.sys_id;
+		} else {
+			return null;
+		}
+	},
+
+	patch_project_sprint: function(projectSysId, sprintSysId) {
+
+		rec = new GlideRecord('x_snc_ippy_jira_sprints');
+		if (rec.get(sprintSysId)) {
+			rec.project = projectSysId;
+			rec.update();
+		} else {
+			gs.error("Unable to locate record '" + sprintSysId + "' in x_snc_ippy_jira_sprints");
+		}
+
+		return;
+	},
+
+    type: 'JiraWebhookProcessor'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>reuben.stump</sys_created_by>
+        <sys_created_on>2016-08-15 17:51:44</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>367c1c0d13956a40913abcc32244b05d</sys_id>
+        <sys_mod_count>78</sys_mod_count>
+        <sys_name>JiraWebhookProcessor</sys_name>
+        <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+        <sys_update_name>sys_script_include_367c1c0d13956a40913abcc32244b05d</sys_update_name>
+        <sys_updated_by>reuben.stump</sys_updated_by>
+        <sys_updated_on>2016-08-17 22:27:48</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="x_snc_ippy_build_server_builds" label="Jenkins Build Server Builds" max_length="40" name="x_snc_ippy_jenkins_build_server_builds" type="collection">
+        <element label="Building" max_length="40" name="building" type="string"/>
+        <element label="Build Server" max_length="32" name="build_server" reference="x_snc_ippy_build_server_servers" type="reference"/>
+        <element label="Display Name" max_length="40" name="display_name" type="string"/>
+        <element label="Full Display Name" max_length="40" name="full_display_name" type="string"/>
+        <element label="Time Stamp" max_length="40" name="time_stamp" type="string"/>
+        <index name="index">
+            <element name="build_server"/>
+        </index>
+    </element>
+</database>

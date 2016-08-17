@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Build_Server_Builds" max_length="40" name="x_snc_ippy_build_server_builds" type="collection">
+        <element label="Build ID" max_length="50" name="build_id" type="string"/>
+        <element label="Commit" max_length="32" name="commit" reference="x_snc_ippy_scm_commits" type="reference"/>
+        <element label="Description" max_length="1000" name="description" type="string"/>
+        <element label="Duration" max_length="40" name="duration" type="integer"/>
+        <element label="Name" max_length="40" name="name" type="string"/>
+        <element label="Result" max_length="40" name="result" type="string"/>
+        <element label="Status" max_length="40" name="status" type="string"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element label="Time Completed" max_length="40" name="time_completed" type="glide_date_time"/>
+        <element label="URL" max_length="1024" name="url" type="url"/>
+        <index name="index">
+            <element name="commit"/>
+        </index>
+    </element>
+</database>

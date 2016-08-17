@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Build_Server_Servers" max_length="40" name="x_snc_ippy_build_server_servers" type="collection">
+        <element label="Name" max_length="40" name="name" type="string"/>
+        <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
+        <element label="Type" max_length="40" name="type" type="string"/>
+        <element label="url" max_length="1024" name="url" type="url"/>
+    </element>
+</database>
