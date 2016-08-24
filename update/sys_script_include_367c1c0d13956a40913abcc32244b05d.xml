@@ -11,7 +11,7 @@
 JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 	
 	process: function() {
-		this.debug = true;
+		this.debug = false;
 
 		if (this.debug) {
 			gs.info("JiraWebhookProcessor received webhook payload:\n" + global.JSON.stringify(this.data));
@@ -40,6 +40,12 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 				break;
 			case "sprint_deleted":
 				this.delete_sprint();
+				break;
+			case "jira:worklog_updated":
+				this.update_worklog();
+				break;
+			case "worklog_deleted":
+				this.delete_worklog();
 				break;
 			default:
 				break;
@@ -227,7 +233,7 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 
 	/* JIRA Sprint => x_snc_ippy_jira_sprints ***********************************************************
 
-		webhookEvent = ['issue_created', 'issue_updated', 'issue_deleted']
+		webhookEvent = ['sprint_updated', 'sprint_created', 'sprint_closed', 'sprint_started']
 
 		Notes:
 			- Sprint hooks do not show relationship to a project; hack we'll wait for an issue hook to 
@@ -278,6 +284,74 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 		return;
 	},
 
+	/* JIRA Worklog => x_snc_ippy_jira_worklogs *********************************************************
+
+		webhookEvent = ['jira:worklog_updated', 'worklog_deleted']
+
+		Notes:
+			- Using jira:worklog_updated event to relate worklog to issue
+			- 'worklog' data structure implies maxResult = 20, meaning likely only see recent 20 worklogs,
+				should be fine for POC logic
+	***************************************************************************************************** */
+
+	update_worklog: function() {
+
+		issueId		= this.data.issue.id;
+		issueUrl	= this.data.issue.self;
+		issueKey	= this.data.issue.key;
+		
+		worklog 	= this.data.issue.fields.worklog;
+
+		// Iterate worklogs
+		for (var i=0; i<worklog.worklogs.length; i++) {
+			thisLog = worklog.worklogs[i];
+
+			var url 	= thisLog.self;
+			var id 		= thisLog.id;
+			var comment = thisLog.comment;
+			var created = thisLog.created;
+			var updated = thisLog.updated;
+			var started = thisLog.started;
+			var timeSpent = thisLog.timeSpent;
+			var timeSpentSeconds = thisLog.timeSpentSeconds;
+			
+			var authorSysId	= this.get_sn_user(thisLog.author.emailAddress);
+			var issueSysId	= this.get_sn_jira_record(issueUrl, 'x_snc_ippy_jira_issues');
+			var updateAuthorSysId = this.get_sn_user(thisLog.updateAuthor.emailAddress);
+
+			rec = new GlideRecord('x_snc_ippy_jira_worklogs');
+			rec.addQuery('url', url);
+			rec.query();
+			rec.next();
+
+			rec.url 	= url;
+			rec.id 		= id;
+			rec.comment	= comment;
+			rec.created = this.ISODateTimeToGlideDateTime(created);
+			rec.updated = this.ISODateTimeToGlideDateTime(updated);
+			rec.started = this.ISODateTimeToGlideDateTime(started);
+			rec.issue 	= issueSysId;
+			rec.author 	= authorSysId;
+			rec.update_author 	= updateAuthorSysId;
+			rec.time_spent 		= timeSpent;
+			rec.time_spent_secs = timeSpentSeconds;
+			rec.update();
+		}
+
+		return;
+	},
+
+	delete_worklog: function() {
+		
+		id		= this.data.worklog.id;
+		url 	= this.data.worklog.self;
+
+		rec = new GlideRecord('x_snc_ippy_jira_worklogs');
+		rec.addQuery('url', url);
+		rec.deleteMultiple();
+
+		return;
+	},
 
 	get_sn_user: function(email) {
 
@@ -319,6 +393,20 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 		}
 	},
 
+	get_sn_jira_record: function(uri, table) {
+
+		rec = new GlideRecord(table);
+		rec.addQuery('url', uri);
+		rec.query();
+
+		if (rec.next()) {
+			return rec.sys_id;
+		} else {
+			return null;
+		}
+	},
+
+
 	get_sn_sprint: function(id, boardId) {
 
 		rec = new GlideRecord('x_snc_ippy_jira_sprints');
@@ -346,6 +434,45 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 		return;
 	},
 
+	/* function : ISODateTimeToGlideDateTime()
+		Convert ISO8601 DateTime string to GlideDateTime object
+	*/
+	ISODateTimeToGlideDateTime: function(s) {
+		if ( (s == '') || (s == null) ) {
+			return null;
+		}
+
+	    // GlideDateTime constructor expects date format: 'YY-MM-DD HH::MM::SS'
+	    parts = s.split(/[-TZ:+]/g);
+	    
+	    if (parts.length < 6) {
+	    	return null;
+	    }
+
+	    dts = '';
+		dts += parts[0] + "-" + parts[1] + "-" + parts[2];
+		dts += ' ';
+
+		// Handle sub seconds
+		sec = parts[5].split(/\./);
+		dts += parts[3] + ":" + parts[4] + ":" + sec[0];
+		
+		// Calculate timezone offset in seconds
+		sign = /\d\d-\d\d:\d\d$/.test(s)? '-' : '+';
+		if ( (parts[6] != null) && (parts[7] != null) ) {
+			offset = parseInt(parts[6] * 3600 + parseInt(parts[7] * 60));
+			offset = 0 + (sign == '-' ? -1 * offset : offset);
+		} else {
+			offset = 0;
+		}
+		
+		// GlideDateTime object
+		gdt = new GlideDateTime(dts);
+		gdt.addSeconds(offset);
+		
+		return gdt;
+	},
+
     type: 'JiraWebhookProcessor'
 });]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
@@ -353,7 +480,7 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
         <sys_created_on>2016-08-15 17:51:44</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>367c1c0d13956a40913abcc32244b05d</sys_id>
-        <sys_mod_count>92</sys_mod_count>
+        <sys_mod_count>108</sys_mod_count>
         <sys_name>JiraWebhookProcessor</sys_name>
         <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
         <sys_policy>read</sys_policy>
@@ -361,6 +488,6 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
         <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
         <sys_update_name>sys_script_include_367c1c0d13956a40913abcc32244b05d</sys_update_name>
         <sys_updated_by>reuben.stump</sys_updated_by>
-        <sys_updated_on>2016-08-17 23:33:01</sys_updated_on>
+        <sys_updated_on>2016-08-23 15:16:41</sys_updated_on>
     </sys_script_include>
 </record_update>

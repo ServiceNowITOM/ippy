@@ -11,6 +11,7 @@
         <operation_script><![CDATA[//Call githubwebprocessor
 var hook = new GitHubWebHookProcessor(request);
 hook.process();
+//gs.info("request data: " + request.body.dataString);
 ]]></operation_script>
         <operation_uri>/api/x_snc_itom_ci/scm_github/Commits</operation_uri>
         <produces>application/json,application/xml,text/xml</produces>
@@ -25,7 +26,7 @@ hook.process();
         <sys_created_on>2016-08-10 15:30:01</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>c18c0a131309e640913abcc32244b068</sys_id>
-        <sys_mod_count>22</sys_mod_count>
+        <sys_mod_count>24</sys_mod_count>
         <sys_name>Commits</sys_name>
         <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
         <sys_policy/>
@@ -33,7 +34,7 @@ hook.process();
         <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
         <sys_update_name>sys_ws_operation_c18c0a131309e640913abcc32244b068</sys_update_name>
         <sys_updated_by>shaun.millin</sys_updated_by>
-        <sys_updated_on>2016-08-15 15:36:53</sys_updated_on>
+        <sys_updated_on>2016-08-24 14:33:58</sys_updated_on>
         <web_service_definition display_value="SCM GitHub">d64c86131309e640913abcc32244b0a2</web_service_definition>
         <web_service_version/>
     </sys_ws_operation>

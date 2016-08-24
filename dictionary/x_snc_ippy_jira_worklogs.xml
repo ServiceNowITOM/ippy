@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element label="JIRA Worklogs" max_length="40" name="x_snc_ippy_jira_worklogs" type="collection"/>
+    <element label="JIRA Worklogs" max_length="40" name="x_snc_ippy_jira_worklogs" type="collection">
+        <element label="Author" max_length="32" name="author" reference="sys_user" type="reference"/>
+        <element label="Comment" max_length="2048" name="comment" type="string"/>
+        <element label="Created" max_length="40" name="created" type="glide_date_time"/>
+        <element label="id" max_length="40" name="id" type="integer"/>
+        <element label="Issue" max_length="32" name="issue" reference="x_snc_ippy_jira_issues" reference_cascade_rule="delete" type="reference"/>
+        <element label="Started" max_length="40" name="started" type="glide_date_time"/>
+        <element label="Time Spent" max_length="40" name="time_spent" type="string"/>
+        <element default="0" label="Time Spent Seconds" max_length="40" name="time_spent_secs" type="integer"/>
+        <element label="Updated" max_length="40" name="updated" type="glide_date_time"/>
+        <element label="Update Author" max_length="32" name="update_author" reference="sys_user" type="reference"/>
+        <element label="url" max_length="1024" name="url" type="url"/>
+        <index name="index">
+            <element name="issue"/>
+        </index>
+        <index name="index2">
+            <element name="author"/>
+        </index>
+        <index name="index3">
+            <element name="update_author"/>
+        </index>
+    </element>
 </database>

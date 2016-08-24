@@ -5,7 +5,11 @@
         <element label="Build Server" max_length="32" name="build_server" reference="x_snc_ippy_build_server_servers" type="reference"/>
         <element label="Display Name" max_length="40" name="display_name" type="string"/>
         <element label="Full Display Name" max_length="40" name="full_display_name" type="string"/>
-        <element label="Time Stamp" max_length="40" name="time_stamp" type="string"/>
+        <element default="0" label="Test Duration" max_length="40" name="test_duration" type="integer"/>
+        <element default="0" label="Test Fail Count" max_length="40" name="test_fail_count" type="integer"/>
+        <element default="0" label="Test Pass Count" max_length="40" name="test_pass_count" type="integer"/>
+        <element default="0" label="Test Skip Count" max_length="40" name="test_skip_count" type="integer"/>
+        <element label="Time Stamp" max_length="40" name="time_stamp" type="glide_date_time"/>
         <index name="index">
             <element name="build_server"/>
         </index>

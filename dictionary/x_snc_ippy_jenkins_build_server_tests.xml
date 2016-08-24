@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Jenkins Build Server Tests" max_length="40" name="x_snc_ippy_jenkins_build_server_tests" type="collection">
+        <element default="0" label="age" max_length="40" name="age" type="integer"/>
+        <element label="Build" max_length="32" name="build" reference="x_snc_ippy_jenkins_build_server_builds" type="reference"/>
+        <element label="ClassName" max_length="2048" name="classname" type="string"/>
+        <element label="duration" max_length="40" name="duration" type="integer"/>
+        <element label="Error Details" max_length="8192" name="error_details" type="string"/>
+        <element label="Error StackTrace" max_length="16384" name="error_stacktrace" type="string"/>
+        <element label="Failed Since" max_length="40" name="failed_since" type="integer"/>
+        <element label="Name" max_length="2048" name="name" type="string"/>
+        <element label="Skipped" max_length="40" name="skipped" type="boolean"/>
+        <element label="Skipped Message" max_length="8192" name="skipped_message" type="string"/>
+        <element label="Status" max_length="1024" name="status" type="string"/>
+        <element default="0" label="Suite Duration" max_length="40" name="suite_duration" type="integer"/>
+        <element label="Suite ID" max_length="1024" name="suite_id" type="string"/>
+        <element label="Suite Name" max_length="2048" name="suite_name" type="string"/>
+        <element label="Url" mandatory="true" max_length="1024" name="url" type="url"/>
+        <index name="index">
+            <element name="build"/>
+        </index>
+    </element>
+</database>

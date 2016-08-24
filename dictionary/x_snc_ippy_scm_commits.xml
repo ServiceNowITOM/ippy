@@ -6,7 +6,7 @@
         <element label="Commit Date" max_length="40" name="commit_date" type="glide_date_time"/>
         <element label="Commit ID" max_length="50" name="commit_id" type="string"/>
         <element label="Repository" max_length="32" name="repository" reference="x_snc_ippy_scm_repositories" type="reference"/>
-        <element label="Story" max_length="32" name="story" reference="rm_story" type="reference"/>
+        <element label="Issues" max_length="32" name="story" reference="x_snc_ippy_jira_issues" type="reference"/>
         <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
         <element label="Total Changes" max_length="40" name="total_changes" type="integer"/>
         <element label="type" max_length="40" name="type" type="string"/>

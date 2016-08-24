@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_section caption="" section_id="cdceb8ef4fd52200298deed18110c7c3" sys_domain="global" table="x_snc_ippy_jenkins_build_server_builds" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.begin_split</element>
+            <position>0</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>1c0fbcef4fd52200298deed18110c7e4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type>.begin_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>building</element>
+            <position>1</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>9c0fbcef4fd52200298deed18110c7e4</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>display_name</element>
+            <position>2</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>100fbcef4fd52200298deed18110c7e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>full_display_name</element>
+            <position>3</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>900fbcef4fd52200298deed18110c7e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>4</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>140fbcef4fd52200298deed18110c7e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>time_stamp</element>
+            <position>5</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>940fbcef4fd52200298deed18110c7e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>build_server</element>
+            <position>6</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>180fbcef4fd52200298deed18110c7e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.end_split</element>
+            <position>7</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>980fbcef4fd52200298deed18110c7e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type>.end_split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>build_id</element>
+            <position>8</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>1c0fbcef4fd52200298deed18110c7e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>duration</element>
+            <position>9</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>9c0fbcef4fd52200298deed18110c7e5</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>name</element>
+            <position>10</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>100fbcef4fd52200298deed18110c7e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>result</element>
+            <position>11</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>900fbcef4fd52200298deed18110c7e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>status</element>
+            <position>12</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>140fbcef4fd52200298deed18110c7e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>time_completed</element>
+            <position>13</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>940fbcef4fd52200298deed18110c7e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>url</element>
+            <position>14</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>180fbcef4fd52200298deed18110c7e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>commit</element>
+            <position>15</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:44:03</sys_created_on>
+            <sys_id>980fbcef4fd52200298deed18110c7e6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:44:03</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>test_fail_count</element>
+            <position>16</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-24 16:01:59</sys_created_on>
+            <sys_id>ff6a52ff135d2200913abcc32244b0f2</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-24 16:01:59</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>test_pass_count</element>
+            <position>17</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-24 16:02:17</sys_created_on>
+            <sys_id>608ad2ff135d2200913abcc32244b080</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-24 16:02:17</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>test_skip_count</element>
+            <position>18</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-24 16:02:36</sys_created_on>
+            <sys_id>c59ad2ff135d2200913abcc32244b024</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-24 16:02:36</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>test_duration</element>
+            <position>19</position>
+            <sys_created_by>reuben.stump</sys_created_by>
+            <sys_created_on>2016-08-24 16:04:20</sys_created_on>
+            <sys_id>aafa1aff135d2200913abcc32244b083</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jenkins_build_server_builds" sys_domain="global" view="Default view">cdceb8ef4fd52200298deed18110c7c3</sys_ui_section>
+            <sys_updated_by>reuben.stump</sys_updated_by>
+            <sys_updated_on>2016-08-24 16:04:20</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption/>
+            <header>false</header>
+            <name>x_snc_ippy_jenkins_build_server_builds</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-08-23 14:42:59</sys_created_on>
+            <sys_customer_update>true</sys_customer_update>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>cdceb8ef4fd52200298deed18110c7c3</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_snc_ippy_jenkins_build_server_builds</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+            <sys_policy/>
+            <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+            <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+            <sys_update_name>sys_ui_section_cdceb8ef4fd52200298deed18110c7c3</sys_update_name>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-08-23 14:42:59</sys_updated_on>
+            <sys_user/>
+            <title>true</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

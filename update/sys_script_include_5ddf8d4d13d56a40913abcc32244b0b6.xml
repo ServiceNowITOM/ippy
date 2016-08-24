@@ -17,15 +17,14 @@ JenkinsWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
 		GL.addQuery('url' ,url);
 		GL.query();
 		while (GL.next()) {
-			juser = GL.credential.user;
+			juser = GL.credential.username;
 			var pass = GL.credential.password;
 			jpass = GL.credential.password.getDecryptedValue();
-			gs.info("Found Jenkins, It hides Like waldo: Inputs: " + url);
 			return {
-				user: juser,
+				myuser: juser,
 				password: jpass,
 				build_server_SysID: GL.sys_id
-			}
+			};
 		}
 	},
 
@@ -40,8 +39,11 @@ JenkinsWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
 		restMessage.setEndpoint(myurl);
 		var httpExecute = restMessage.executeAsync();
 		httpExecute.waitForResponse(60);
+		if (httpExecute.getStatusCode() != 200){
+			throw httpExecute.getErrorMessage();
+			
+		}
 		var messageBody = httpExecute.getBody();
-		gs.info("Jenkins Build:" + messageBody);
 		return global.JSON.parse(messageBody);
 
 	},
@@ -72,7 +74,7 @@ JenkinsWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
 	//Fetch_GitHub_Commit: function(){},
 
 
-	Write_jenkins_build: function(buildJSON, commitID){
+	Write_jenkins_build: function(buildJSON, commitID, buildServerID){
 
 
 		function twoDigits(d) {
@@ -103,31 +105,107 @@ JenkinsWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
 				var buildDB_add = new GlideRecord('x_snc_ippy_jenkins_build_server_builds');
 				buildDB_add.initialize(); 
 				buildDB_add.build_id = buildJSON.id;
-				//buildDB_add.build_number = buildJSON.number;
+				buildDB_add.time_completed = time;
+				buildDB_add.time_stamp = time;
 				buildDB_add.building = buildJSON.building;
+				buildDB_add.status = buildJSON.result;
 				buildDB_add.commit = commitID;
 				buildDB_add.description = buildJSON.description;
 				buildDB_add.display_name = buildJSON.displayName;
 				buildDB_add.duration = buildJSON.duration;
-				//buildDB_add.estimated_duration = buildJSON.estimatedDuration;
+				buildDB_add.name = buildJSON.fullDisplayName;
 				buildDB_add.full_display_name = buildJSON.fullDisplayName;
 				buildDB_add.result = buildJSON.result;
-				//buildDB_add.timestamp = time;
 				buildDB_add.url = buildJSON.url;
+				buildDB_add.build_server = buildServerID;
 				return buildDB_add.insert();
 		}
 
 
 	},
 
+	process_test_results: function(url, path, user, pass) {
+		
+		var req = new sn_ws.RESTMessageV2();
+		req.setBasicAuth(user, pass);
+		req.setHttpMethod("get");
+		uri = url + path + "/api/json";
+		req.setEndpoint(uri);
+
+		var res = req.execute();
+		
+		statusCode = res.getStatusCode();
+		if (statusCode != 200) {
+			gs.error("Request to Jenkins (" + uri + ") failed: " + res.getErrorMessage());
+		}
+		
+		data = global.JSON.parse(res.getBody());
+		
+		// Update failCount, passCount, skipCount, duration on build information
+		rec = new GlideRecord('x_snc_ippy_jenkins_build_server_builds');
+		rec.addQuery('url', url);
+		rec.query();
+
+		buildSysId = null;
+		if (!rec.next()) {
+			gs.error("process_test_results: failed to find build job '" + url + "'");
+		} else {
+			buildSysId 			= rec.sys_id;
+			rec.test_duration 	= data.duration;
+			rec.test_fail_count = data.failCount;
+			rec.test_skip_count = data.skipCount;
+			rec.test_pass_count = data.passCount;
+			rec.update();
+
+			// Iterate suites + cases
+			if (data.suites) {
+				suites = data.suites;
+			} else {
+				suites = [ ];
+			}
+
+			for (var i=0; i<suites.length; i++) {
+				thisSuite = suites[i];
+
+				if (thisSuite.cases) {
+					cases = thisSuite.cases;
+				} else {
+					cases = [ ];
+				}
+
+				for (var j=0; j<cases.length; j++) {
+					var thisCase = cases[j];
+
+					var newCase = new GlideRecord('x_snc_ippy_jenkins_build_server_tests');
+					newCase.initialize();
+
+					newCase.age = thisCase.age;
+					newCase.classname = thisCase.className;
+					newCase.duration = thisCase.duration;
+					newCase.error_details = thisCase.errorDetails;
+					newCase.error_stacktrace = thisCase.errorStackTrace;
+					newCase.failed_since = thisCase.failedSince;
+					newCase.name = thisCase.name;
+					newCase.skipped = thisCase.skipped;
+					newCase.skipped_message = thisCase.skipped_message;
+					newCase.status = thisCase.status;
+					newCase.build = buildSysId;
+
+					newCase.insert();
+				}
+			}
+		}
+
+		return;
+	},
+
 	process: function(){
 		//Get Jenkins Cred
 		var j_host = this.headers['x-forwarded-for'];
-		gs.info("This is the this data:" + global.JSON.stringify(this.data));
 		var jenkins_server = this.Get_jenkins_Cred(j_host);
 
 		//Get Jenkins Build Info
-		var jenkins_build = this.Get_jenkins_build(this.data.build.scm.url, jenkins_server.user, jenkins_server.password);
+		var jenkins_build = this.Get_jenkins_build(this.data.build.full_url, jenkins_server.myuser, jenkins_server.password);
 
 		//Get the Commit
 		var build_commit = this.Get_commit(this.data.build.scm.commit);
@@ -135,9 +213,11 @@ JenkinsWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
 		//May need code at some point that will fetch commits if they are missing and call the correct collector based on type. 
 		//That would go here
 
-
 		//Write Build to table
-		this.Write_jenkins_build(jenkins_build, build_commit.commit_id);
+		this.Write_jenkins_build(jenkins_build, build_commit.commit_id, jenkins_server.build_server_SysID);
+
+		// Process Jenkins build test results
+		this.process_test_results(this.data.build.full_url, 'testReport', jenkins_server.myuser, jenkins_server.password);
 
 	},
 
@@ -150,14 +230,14 @@ JenkinsWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
         <sys_created_on>2016-08-15 21:52:02</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>5ddf8d4d13d56a40913abcc32244b0b6</sys_id>
-        <sys_mod_count>8</sys_mod_count>
+        <sys_mod_count>48</sys_mod_count>
         <sys_name>JenkinsWebHookProcessor</sys_name>
         <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
         <sys_policy>read</sys_policy>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
         <sys_update_name>sys_script_include_5ddf8d4d13d56a40913abcc32244b0b6</sys_update_name>
-        <sys_updated_by>shaun.millin</sys_updated_by>
-        <sys_updated_on>2016-08-17 13:38:42</sys_updated_on>
+        <sys_updated_by>reuben.stump</sys_updated_by>
+        <sys_updated_on>2016-08-24 17:32:09</sys_updated_on>
     </sys_script_include>
 </record_update>
