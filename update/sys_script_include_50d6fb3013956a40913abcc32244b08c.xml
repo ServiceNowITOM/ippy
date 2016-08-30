@@ -12,7 +12,7 @@ GitHubWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
 	
 	Check_Test: function(requestdata){
 	if (requestdata.zen){
-		return true;
+		return true
 		}
 	
 	},
@@ -155,6 +155,24 @@ GitHubWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
 		var myMessage = mycommit.message;
 		var messagesplit = myMessage.split(" ");
 		for (x = 0; x < messagesplit.length; x++) {
+			var mystory = new GlideRecord('rm_story');
+			mystory.addQuery('number', messagesplit[x]);
+			mystory.query();
+			while (mystory.next()) {
+				if (mystory.sys_id){
+					mycommit.storytwo = mystory.sys_id;
+					mycommit.update();
+				}
+			}
+		}
+	},
+	
+	RelateIssue: function(commitID){
+		var mycommit = new GlideRecord('x_snc_ippy_github_scm_commits');
+		mycommit.get(commitID);
+		var myMessage = mycommit.message;
+		var messagesplit = myMessage.split(" ");
+		for (x = 0; x < messagesplit.length; x++) {
 			var mystory = new GlideRecord('x_snc_ippy_jira_issues');
 			mystory.addQuery('key', messagesplit[x]);
 			mystory.query();
@@ -273,7 +291,8 @@ GitHubWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
 		this.Write_Files(files, Commit_sysID, owner, reponame, SHA);
 		
 	//Relate Story if needed
-	this.RelateStory(Commit_sysID);
+		this.RelateStory(Commit_sysID);
+		this.RelateIssue(Commit_sysID);
 	
 	}	
 	},
@@ -285,7 +304,7 @@ GitHubWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
         <sys_created_on>2016-08-15 15:30:42</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>50d6fb3013956a40913abcc32244b08c</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>8</sys_mod_count>
         <sys_name>GitHubWebHookProcessor</sys_name>
         <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
         <sys_policy>read</sys_policy>
@@ -293,6 +312,6 @@ GitHubWebHookProcessor.prototype = Object.extendsObject(WebhookProcessor,{
         <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
         <sys_update_name>sys_script_include_50d6fb3013956a40913abcc32244b08c</sys_update_name>
         <sys_updated_by>shaun.millin</sys_updated_by>
-        <sys_updated_on>2016-08-24 19:19:16</sys_updated_on>
+        <sys_updated_on>2016-08-25 13:22:33</sys_updated_on>
     </sys_script_include>
 </record_update>

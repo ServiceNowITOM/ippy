@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_view">
+    <sys_ui_view action="INSERT_OR_UPDATE">
+        <group/>
+        <hidden>false</hidden>
+        <name>Connect</name>
+        <roles/>
+        <sys_class_name>sys_ui_view</sys_class_name>
+        <sys_created_by>reuben.stump</sys_created_by>
+        <sys_created_on>2016-08-26 13:39:12</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>ffecc4a813696200913abcc32244b056</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Connect</sys_name>
+        <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+        <sys_update_name>sys_ui_view_ffecc4a813696200913abcc32244b056</sys_update_name>
+        <sys_updated_by>reuben.stump</sys_updated_by>
+        <sys_updated_on>2016-08-26 13:39:12</sys_updated_on>
+        <title>Connect</title>
+        <user/>
+    </sys_ui_view>
+</record_update>
