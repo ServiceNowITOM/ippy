@@ -2,7 +2,7 @@
 <record_update table="sys_report">
     <sys_report action="INSERT_OR_UPDATE">
         <additional_groupby/>
-        <aggregate>SUM</aggregate>
+        <aggregate>COUNT</aggregate>
         <axis_max_color display_value="UI14 Blue Light">b0d449b3d7332100fa6c0c12ce610383</axis_max_color>
         <axis_min_color display_value="White">65b303c7a9fe3dba00629aff95ee3597</axis_min_color>
         <bar_unstack>false</bar_unstack>
@@ -21,7 +21,7 @@
         <color display_value="Default Color">de699435d7033100b4964ebfae610331</color>
         <color_palette display_value="Default UI14">aa558ab3d7732100fa6c0c12ce610377</color_palette>
         <colors/>
-        <column>author</column>
+        <column>build_id</column>
         <compute_percent>aggregate</compute_percent>
         <content/>
         <custom_chart_size>false</custom_chart_size>
@@ -32,16 +32,15 @@
         <display_grid>false</display_grid>
         <donut_width_percent>50</donut_width_percent>
         <exp_report_attrs>true</exp_report_attrs>
-        <field>issue</field>
+        <field>result</field>
         <field_list/>
-        <filter table="x_snc_ippy_jira_worklogs">^GROUPBYissue^TRENDBYcreated,date<item endquery="false" field="" goto="false" newquery="false" operator="GROUPBY" or="false" value="issue"/>
-            <item endquery="false" field="" goto="false" newquery="false" operator="TRENDBY" or="false" value="created,date"/>
+        <filter table="x_snc_ippy_jenkins_build_server_builds">^GROUPBYresult<item endquery="false" field="" goto="false" newquery="false" operator="GROUPBY" or="false" value="result"/>
         </filter>
         <from/>
         <funnel_neck_percent>30</funnel_neck_percent>
         <gauge_autoscale>true</gauge_autoscale>
         <group/>
-        <interval>date</interval>
+        <interval>year</interval>
         <is_published>false</is_published>
         <is_scheduled>false</is_scheduled>
         <legend_background_color display_value="White">65b303c7a9fe3dba00629aff95ee3597</legend_background_color>
@@ -58,12 +57,12 @@
         <map_source/>
         <orderby_list/>
         <other_threshold>-2</other_threshold>
-        <others>false</others>
+        <others>true</others>
         <page_hdrftr display_value="Default">0ecdb03fc3613000cef73b251eba8f5e</page_hdrftr>
         <report_drilldown/>
         <report_source/>
         <roles/>
-        <row>author</row>
+        <row>build_id</row>
         <sc_groupby_item_id/>
         <sc_groupby_variable_id/>
         <sc_stackby_item_id/>
@@ -80,28 +79,28 @@
         <show_legend_border>false</show_legend_border>
         <show_marker>true</show_marker>
         <show_zero>false</show_zero>
-        <sumfield>time_spent_secs</sumfield>
+        <sumfield>duration</sumfield>
         <sys_class_name>sys_report</sys_class_name>
         <sys_created_by>reuben.stump</sys_created_by>
-        <sys_created_on>2016-08-30 21:14:31</sys_created_on>
+        <sys_created_on>2016-08-31 13:18:51</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
-        <sys_id>6c8b5abd4f65e200298deed18110c749</sys_id>
-        <sys_mod_count>2</sys_mod_count>
-        <sys_name>Seconds Worked Per JIRA Issue By Day</sys_name>
+        <sys_id>6238390a4fe9e200298deed18110c7e7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Jenkins Builds Results</sys_name>
         <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
         <sys_policy/>
         <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
         <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
-        <sys_update_name>sys_report_6c8b5abd4f65e200298deed18110c749</sys_update_name>
+        <sys_update_name>sys_report_6238390a4fe9e200298deed18110c7e7</sys_update_name>
         <sys_updated_by>reuben.stump</sys_updated_by>
-        <sys_updated_on>2016-08-31 13:06:31</sys_updated_on>
-        <table>x_snc_ippy_jira_worklogs</table>
-        <title>Seconds Worked Per JIRA Issue By Day</title>
+        <sys_updated_on>2016-08-31 13:18:51</sys_updated_on>
+        <table>x_snc_ippy_jenkins_build_server_builds</table>
+        <title>Jenkins Builds Results</title>
         <title_horizontal_alignment>center</title_horizontal_alignment>
         <title_vertical_alignment>top</title_vertical_alignment>
         <to/>
-        <trend_field>created</trend_field>
-        <type>line</type>
+        <trend_field>build_server...</trend_field>
+        <type>pie</type>
         <upper_limit/>
         <use_color_heatmap>true</use_color_heatmap>
         <use_color_palette>true</use_color_palette>

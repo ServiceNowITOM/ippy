@@ -11,7 +11,7 @@
         <element label="Name" max_length="2048" name="name" type="string"/>
         <element label="Skipped" max_length="40" name="skipped" type="boolean"/>
         <element label="Skipped Message" max_length="8192" name="skipped_message" type="string"/>
-        <element label="Status" max_length="1024" name="status" type="string"/>
+        <element label="Status" max_length="42" name="status" type="string"/>
         <element default="0" label="Suite Duration" max_length="40" name="suite_duration" type="integer"/>
         <element label="Suite ID" max_length="1024" name="suite_id" type="string"/>
         <element label="Suite Name" max_length="2048" name="suite_name" type="string"/>
