@@ -11,7 +11,7 @@
 JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 	
 	process: function() {
-		this.debug = false;
+		this.debug = true;
 
 		if (this.debug) {
 			gs.info("JiraWebhookProcessor received webhook payload:\n" + global.JSON.stringify(this.data));
@@ -24,6 +24,15 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 				break;
 			case "project_deleted":
 				this.delete_project();
+				break;
+			case "jira:version_created":
+			case "jira:version_updated":
+			case "jira:version_released":
+			case "jira:version_unreleased":
+				this.update_release();
+				break;
+			case "jira:version_deleted":
+				this.delete_release();
 				break;
 			case "jira:issue_created":
 			case "jira:issue_updated":
@@ -100,6 +109,68 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 		url		= this.data.project.self;
 
 		rec = new GlideRecord('x_snc_ippy_jira_projects');
+		rec.addQuery('url', url);
+		rec.deleteMultiple();
+
+		return;
+	},
+
+	/* JIRA Releases / Versions => x_snc_ippy_jira_issues ***********************************************
+
+		webhookEvent = ['jira:version_created', ]
+
+		Notes:
+	***************************************************************************************************** */
+
+	update_release: function() {
+		url = this.data.version.self;
+		id = this.data.version.id;
+		description = this.data.version.description;
+		name = this.data.version.name;
+		archived = this.data.version.archived;
+		released = this.data.version.released;
+		overdue = this.data.version.overdue;
+		userStartDate = this.data.version.userStartDate;
+		userReleaseDate = this.data.version.userReleaseDate;
+		projectId = this.data.version.projectId;
+
+		// Project reference to x_snc_ippy_jira_projects; use url, split hack since it is not provided in 
+		//  JIRA api.
+		urlParts = url.split('/');
+		urlParts.slice(-1, 2);
+		urlParts.push('project');
+		urlParts.push(projectId);
+		projectUrl = urlParts.join('/');
+		projectSysId = this.get_sn_project(projectUrl);
+
+		rec = new GlideRecord('x_snc_ippy_jira_releases');
+		rec.addQuery('url', url);
+		rec.query();
+		rec.next();
+
+		rec.project 	= projectSysId;
+		rec.projectId 	= projectId;
+		rec.id 			= id;
+		rec.url 		= url;
+		rec.description = description;
+		rec.name 		= name;
+		rec.archived 	= archived;
+		rec.overdue 	= overdue;
+		rec.released 	= released;
+		rec.userstartdate 	= this.get_sn_glidedate(userStartDate);
+		rec.userreleasedate = this.get_sn_glidedate(userReleaseDate);
+
+		rec.update();
+
+		return;
+	},
+
+	delete_release: function() {
+		
+		id		= this.data.version.id;
+		url		= this.data.version.self;
+
+		rec = new GlideRecord('x_snc_ippy_jira_releases');
 		rec.addQuery('url', url);
 		rec.deleteMultiple();
 
@@ -213,6 +284,23 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 		rec.description = desc;
 
 		rec.update();
+
+		// Map issues <-> versions/releases
+		issueSysId = this.get_sn_jira_record(url, 'x_snc_ippy_jira_issues');
+
+		// remove all existing issue <-> release relationships
+		rec = new GlideRecord('x_snc_ippy_m2m_jira_releases_jira_issues');
+		rec.addQuery('jira_issues', issueSysId);
+		rec.deleteMultiple();
+
+		releases = issue.fields.versions;
+		if (!(releases instanceof Array)) { releases = [ ]; }
+
+		for (var i=0; i<releases.length; i++) {
+			releaseUrl = releases[i].self;
+			releaseSysId = this.get_sn_jira_record(releaseUrl, 'x_snc_ippy_jira_releases');
+			this.relate_issue_release(issueSysId, releaseSysId);
+		}
 
 		return;
 	},
@@ -421,6 +509,50 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
 		}
 	},
 
+	get_sn_glidedate: function(jira_date) {
+		monthHash = {
+			"Jan": "01",
+			"Feb": "02",
+			"Mar": "03",
+			"Apr": "04",
+			"May": "05",
+			"Jun": "06",
+			"Jul": "07",
+			"Aug": "08",
+			"Sep": "09",
+			"Oct": "10",
+			"Nov": "11",
+			"Dec": "12",
+		};
+
+		// Convert JIRA date 'DD/MMM/YY' to 'YYYY-MM-DD'
+		dateParts = jira_date.split('/');
+
+		// Assume this code will not survive the next century...
+		dateString = "20" + dateParts[2] + "-" + monthHash[dateParts[1]] + "-" + dateParts[0];
+		g_date = new GlideDate();
+		g_date.setValue(dateString);
+
+		return g_date;
+	},
+
+	relate_issue_release: function(issueSysId, releaseSysId) {
+		rec = new GlideRecord('x_snc_ippy_m2m_jira_releases_jira_issues');
+		rec.addQuery("jira_releases", releaseSysId);
+		rec.addQuery("jira_issues", issueSysId);
+		rec.query();
+		
+		if ( !rec.hasNext() ) {
+			rec = new GlideRecord('x_snc_ippy_m2m_jira_releases_jira_issues');
+			rec.initialize();
+			rec.jira_releases = releaseSysId;
+			rec.jira_issues = issueSysId;
+			rec.insert();
+		}
+
+		return;
+	},
+
 	patch_project_sprint: function(projectSysId, sprintSysId) {
 
 		rec = new GlideRecord('x_snc_ippy_jira_sprints');
@@ -480,7 +612,7 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
         <sys_created_on>2016-08-15 17:51:44</sys_created_on>
         <sys_customer_update>true</sys_customer_update>
         <sys_id>367c1c0d13956a40913abcc32244b05d</sys_id>
-        <sys_mod_count>108</sys_mod_count>
+        <sys_mod_count>163</sys_mod_count>
         <sys_name>JiraWebhookProcessor</sys_name>
         <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
         <sys_policy>read</sys_policy>
@@ -488,6 +620,6 @@ JiraWebhookProcessor.prototype =  Object.extendsObject(WebhookProcessor, {
         <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
         <sys_update_name>sys_script_include_367c1c0d13956a40913abcc32244b05d</sys_update_name>
         <sys_updated_by>reuben.stump</sys_updated_by>
-        <sys_updated_on>2016-08-23 15:16:41</sys_updated_on>
+        <sys_updated_on>2016-09-27 18:56:00</sys_updated_on>
     </sys_script_include>
 </record_update>

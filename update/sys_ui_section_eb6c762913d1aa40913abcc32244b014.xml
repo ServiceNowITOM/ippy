@@ -239,6 +239,20 @@
             <sys_user/>
             <type/>
         </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>releaseid</element>
+            <position>17</position>
+            <sys_created_by>shaun.millin</sys_created_by>
+            <sys_created_on>2016-09-27 16:21:54</sys_created_on>
+            <sys_id>8705edba134ea600913abcc32244b0be</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_snc_ippy_jira_issues" sys_domain="global" view="Default view">eb6c762913d1aa40913abcc32244b014</sys_ui_section>
+            <sys_updated_by>shaun.millin</sys_updated_by>
+            <sys_updated_on>2016-09-27 16:21:54</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
         <sys_ui_section action="INSERT_OR_UPDATE">
             <caption/>
             <header>false</header>

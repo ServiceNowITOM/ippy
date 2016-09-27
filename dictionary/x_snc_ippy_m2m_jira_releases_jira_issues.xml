@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Ippy M2m Jira Releases Jira Issues" max_length="40" name="x_snc_ippy_m2m_jira_releases_jira_issues" type="collection">
+        <element label="JIRA Issues" max_length="32" name="jira_issues" reference="x_snc_ippy_jira_issues" type="reference"/>
+        <element label="Jira Releases" max_length="32" name="jira_releases" reference="x_snc_ippy_jira_releases" type="reference"/>
+        <index name="index">
+            <element name="jira_issues"/>
+        </index>
+        <index name="index2">
+            <element name="jira_releases"/>
+        </index>
+    </element>
+</database>

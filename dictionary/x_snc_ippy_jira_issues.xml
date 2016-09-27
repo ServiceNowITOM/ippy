@@ -8,6 +8,7 @@
         <element display="true" label="key" max_length="128" name="key" type="string"/>
         <element label="priority" max_length="128" name="priority" type="string"/>
         <element label="Project" max_length="32" name="project" reference="x_snc_ippy_jira_projects" reference_cascade_rule="delete" type="reference"/>
+        <element label="ReleaseID" max_length="40" name="releaseid" type="integer"/>
         <element label="reporter" max_length="32" name="reporter" reference="sys_user" type="reference"/>
         <element label="sprint" max_length="32" name="sprint" reference="x_snc_ippy_jira_sprints" type="reference"/>
         <element label="status" max_length="128" name="status" type="string"/>

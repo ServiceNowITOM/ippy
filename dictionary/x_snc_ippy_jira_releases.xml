@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Jira Releases" max_length="40" name="x_snc_ippy_jira_releases" type="collection">
+        <element label="archived" max_length="40" name="archived" type="boolean"/>
+        <element label="description" max_length="1000" name="description" type="string"/>
+        <element label="id" max_length="40" name="id" type="integer"/>
+        <element label="name" max_length="40" name="name" type="string"/>
+        <element label="overdue" max_length="40" name="overdue" type="boolean"/>
+        <element label="Project" max_length="32" name="project" reference="x_snc_ippy_jira_projects" type="reference"/>
+        <element label="projectId" max_length="40" name="projectid" type="integer"/>
+        <element label="released" max_length="40" name="released" type="boolean"/>
+        <element label="Timestamp" max_length="40" name="timestamp" type="glide_date_time"/>
+        <element label="url" mandatory="true" max_length="1024" name="url" type="url"/>
+        <element label="userReleaseDate" max_length="40" name="userreleasedate" type="glide_date"/>
+        <element label="userStartDate" max_length="40" name="userstartdate" type="glide_date"/>
+        <index name="index">
+            <element name="project"/>
+        </index>
+    </element>
+</database>
