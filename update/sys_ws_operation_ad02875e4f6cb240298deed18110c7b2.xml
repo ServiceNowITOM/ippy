@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl/>
+        <http_method>POST</http_method>
+        <name>KPIFeed_Post</name>
+        <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+	var kpi_in = request.body.data; 
+	var payload = kpi_in.payload; 
+	var metric = kpi_in.metric; 
+	var kpi_name = kpi_in.kpi_name; 
+	var host = kpi_in.host;
+
+	var gr = new GlideRecord('x_snc_ippy_kpi_feed');
+	gr.initialize();
+	gr.host = host; 
+	gr.kpi_name = kpi_name; 
+	gr.metric = metric; 
+	gr.payload = payload;
+	gr.insert();
+
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_snc_ippy/kpi_feed/postfeed</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/postfeed</relative_path>
+        <request_example/>
+        <requires_acl_authorization>false</requires_acl_authorization>
+        <requires_authentication>false</requires_authentication>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>Shaun.Millin</sys_created_by>
+        <sys_created_on>2017-01-28 16:29:06</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>ad02875e4f6cb240298deed18110c7b2</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>KPIFeed_Post</sys_name>
+        <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+        <sys_update_name>sys_ws_operation_ad02875e4f6cb240298deed18110c7b2</sys_update_name>
+        <sys_updated_by>Shaun.Millin</sys_updated_by>
+        <sys_updated_on>2017-01-28 16:38:11</sys_updated_on>
+        <web_service_definition display_value="KPI Feed">8ae1475e4f6cb240298deed18110c78f</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>

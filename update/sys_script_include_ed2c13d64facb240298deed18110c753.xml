@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_snc_ippy.ApplicationFeeds</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>ApplicationFeeds</name>
+        <script><![CDATA[var ApplicationFeeds = Class.create();
+ApplicationFeeds.prototype = {
+	initialize: function() {
+	},
+	
+	processKPI: function(myjson) {
+		var match;
+		var kpi_in = myjson; 
+		var payload = kpi_in.payload; 
+		var metric = kpi_in.metric; 
+		var kpi_name = kpi_in.kpi_name; 
+		var host = kpi_in.host;
+		var fl = new GlideRecord('x_snc_ippy_application_kpi_definition');
+		fl.addQuery('kpi_name', feed_name);
+		fl.query();
+		if (fl.next()){
+			match = fl.application_environment;
+		}
+		var gr = new GlideRecord('x_snc_ippy_application_operational_feed');
+		gr.initialize();
+		gr.feed_name = feed_name;
+		gr.status = status;
+		gr.application = match;
+		var feed = gr.insert();
+	},
+	
+	processOpStatus: function(myjson) {
+		var match;
+		var op_in = myjson;
+		var feed_name = op_in.feed_name;
+		var status = op_in.status;
+		var fl = new GlideRecord('x_snc_ippy_application_operational_feed_definition');
+		fl.addQuery('operational_feed_name', feed_name);
+		fl.query();
+		if (fl.next()){
+			match = fl.application;
+		}
+		var gr = new GlideRecord('x_snc_ippy_application_operational_feed');
+		gr.initialize();
+		gr.feed_name = feed_name;
+		gr.status = status;
+		gr.application = match;
+		var feed = gr.insert();
+		
+	},
+	
+	kpiTrigger: function(thematch, thefeed) {
+		var gr = new GlideRecord('x_snc_ippy_kpi_trigger');
+		gr.addQuery('kpi_definition', thematch);
+		gr.query();
+		if (gr.next()){
+			//Deter metric type
+			var mt = gr.metric_type;
+			
+			//if average
+			if (mt == "Average Above"){
+				//add query pulling from feed
+					//name
+					//created
+					//add metrics
+					//divide by record count returned in query
+				
+					//if above metric value run action
+						//run alert
+			}
+			if (mt == "Average Below"){
+				//add query pulling from feed
+					//name
+					//created
+					//add metrics
+					//divide by record count returned in query
+				
+					//if below metric value run action
+						//run alert		
+			}
+			if (mt == "Above"){
+
+				//if feed is above metric value run action
+					//run alert	
+			}
+			if (mt == "Below"){
+				//if feed is below metric value run action
+					//run alert	
+			}
+			
+			
+		}
+	},
+	
+		kpiTriggerAction: function(trigger) {
+		var gr = new GlideRecord('x_snc_ippy_kpi_trigger');
+		gr.get(trigger);
+			//input trigger execution into table
+			
+			//if trigger action is workflow
+				//run workflow
+			//if trigger action is script run script
+			
+			//else set status to success
+			
+			//update trigger action in table success, failure
+	},
+	
+		kpiTriggerAlert: function(trigger) {
+		var gr = new GlideRecord('x_snc_ippy_kpi_trigger');
+		gr.get(trigger);
+			//if warning
+			
+			//if alert
+		
+	},
+	
+		kpiTriggerRunWorkflow: function(trigger) {
+			var gr = new GlideRecord('x_snc_ippy_kpi_trigger');
+			gr.get(trigger);
+			//execute workflow
+			//return sucess or failure
+		
+		
+	},
+	
+		kpiTriggerRunScript: function(trigger) {
+		var gr = new GlideRecord('x_snc_ippy_kpi_trigger');
+		gr.get(trigger);
+		//execute script
+		//return sucess or failure
+	},
+	
+	opsTrigger: function(thematch, thefeed){
+		
+	},
+	
+	type: 'ApplicationFeeds'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>Shaun.Millin</sys_created_by>
+        <sys_created_on>2017-01-28 18:33:42</sys_created_on>
+        <sys_customer_update>true</sys_customer_update>
+        <sys_id>ed2c13d64facb240298deed18110c753</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>ApplicationFeeds</sys_name>
+        <sys_package display_value="Insightful Pipeline" source="x_snc_ippy">fd9800804f51ae40298deed18110c71e</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="Insightful Pipeline">fd9800804f51ae40298deed18110c71e</sys_scope>
+        <sys_update_name>sys_script_include_ed2c13d64facb240298deed18110c753</sys_update_name>
+        <sys_updated_by>Shaun.Millin</sys_updated_by>
+        <sys_updated_on>2017-02-08 16:40:22</sys_updated_on>
+    </sys_script_include>
+</record_update>

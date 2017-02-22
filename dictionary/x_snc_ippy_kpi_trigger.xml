@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="KPI Trigger" max_length="40" name="x_snc_ippy_kpi_trigger" type="collection">
+        <element label="Action Type" max_length="40" name="action_type" type="string"/>
+        <element label="Alert" max_length="40" name="alert" type="boolean"/>
+        <element label="Average Duration" max_length="40" name="average_duration" type="integer"/>
+        <element label="KPI Definition" max_length="32" name="kpi_definition" reference="x_snc_ippy_application_kpi_definition" type="reference"/>
+        <element label="Metric Action Value" max_length="40" name="metric_action_value" type="integer"/>
+        <element label="Metric Type" max_length="40" name="metric_type" type="string"/>
+        <element label="Script" max_length="8000" name="script" type="script"/>
+        <element label="Time Between Trigger Events" max_length="40" name="time_between_trigger_events" type="integer"/>
+        <element label="Trigger Name" max_length="40" name="trigger_name" type="string"/>
+        <element label="Warning" max_length="40" name="warning" type="boolean"/>
+        <element label="Workflow" max_length="32" name="workflow" reference="wf_workflow" type="reference"/>
+        <index name="index">
+            <element name="kpi_definition"/>
+        </index>
+        <index name="index2">
+            <element name="workflow"/>
+        </index>
+    </element>
+</database>

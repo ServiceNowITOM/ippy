@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="KPI Feed" max_length="40" name="x_snc_ippy_kpi_feed" type="collection">
+        <element label="application" max_length="32" name="application" reference="x_snc_ippy_application_environment" type="reference"/>
+        <element label="Host" max_length="40" name="host" type="string"/>
+        <element label="KPI Name" max_length="40" name="kpi_name" type="string"/>
+        <element label="Metric" max_length="40" name="metric" type="integer"/>
+        <element label="Payload" max_length="4001" name="payload" type="string"/>
+        <index name="index">
+            <element name="application"/>
+        </index>
+    </element>
+</database>

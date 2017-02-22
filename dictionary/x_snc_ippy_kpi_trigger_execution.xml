@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="KPI Trigger Execution" max_length="40" name="x_snc_ippy_kpi_trigger_execution" type="collection">
+        <element label="Application" max_length="32" name="application" reference="x_snc_ippy_application_environment" type="reference"/>
+        <element label="KPI Definition" max_length="32" name="kpi_definition" reference="x_snc_ippy_application_kpi_definition" type="reference"/>
+        <element label="KPI Trigger" max_length="32" name="kpi_trigger" reference="x_snc_ippy_kpi_trigger" type="reference"/>
+        <index name="index">
+            <element name="kpi_trigger"/>
+        </index>
+        <index name="index2">
+            <element name="application"/>
+        </index>
+        <index name="index3">
+            <element name="kpi_definition"/>
+        </index>
+    </element>
+</database>

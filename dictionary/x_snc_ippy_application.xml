@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="cmdb_ci_appl" label="Application" max_length="40" name="x_snc_ippy_application" type="collection">
+        <element label="Application Name" max_length="40" name="application_name" type="string"/>
+        <element label="Application Repo" max_length="32" name="application_repo" reference="x_snc_ippy_scm_repositories" type="reference"/>
+        <index name="index">
+            <element name="application_repo"/>
+        </index>
+    </element>
+</database>

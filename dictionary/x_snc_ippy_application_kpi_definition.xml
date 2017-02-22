@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Application KPI Definition " max_length="40" name="x_snc_ippy_application_kpi_definition" type="collection">
+        <element label="Application Environment" max_length="32" name="application_environment" reference="x_snc_ippy_application_environment" type="reference"/>
+        <element label="KPI Name" max_length="40" name="kpi_name" type="string"/>
+        <index name="index">
+            <element name="application_environment"/>
+        </index>
+    </element>
+</database>

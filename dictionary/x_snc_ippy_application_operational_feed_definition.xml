@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Application Operational Feed Definition" max_length="40" name="x_snc_ippy_application_operational_feed_definition" type="collection">
+        <element label="Application" max_length="32" name="application" reference="x_snc_ippy_application_environment" type="reference"/>
+        <element label="Operational Feed Name" max_length="40" name="operational_feed_name" type="string"/>
+        <index name="index">
+            <element name="application"/>
+        </index>
+    </element>
+</database>
